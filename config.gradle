@@ -1,0 +1,19 @@
+ext {
+    android = [
+            applicationId    : 'com.yangdiansheng.music',
+            compileSdkVersion: 28,
+            minSdkVersion    : 19,
+            targetSdkVersion : 28,
+            versionCode      : 1,
+            versionName      : '1.0',
+            mutidex          : true
+    ]
+
+    depsVersion = [
+            appcompat: '28.0.0'
+    ]
+
+    depsLibs = [
+            appcompat: "com.android.support:appcompat-v7:${depsVersion.appcompat}"
+    ]
+}

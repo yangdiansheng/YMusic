@@ -5,12 +5,12 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 
-import com.yangdiansheng.lib_common_ui.ScaleTransitionPagerTitleView;
+import com.yangdiansheng.lib_common_ui.base.BaseActivity;
+import com.yangdiansheng.lib_common_ui.page_indictor.ScaleTransitionPagerTitleView;
 import com.yangdiansheng.music.R;
 import com.yangdiansheng.music.view.home.adapter.HomePagerAdapter;
 import com.yangdiansheng.music.view.home.model.CHANNEL;
@@ -23,7 +23,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 
-public class HomeActivity extends FragmentActivity implements View.OnClickListener{
+public class HomeActivity extends BaseActivity implements View.OnClickListener{
 
     private static final CHANNEL[] CHANNELS =
             new CHANNEL[]{CHANNEL.MY, CHANNEL.DISCORY, CHANNEL.FRIEND};

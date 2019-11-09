@@ -1,4 +1,4 @@
-package com.yangdiansheng.lib_common_ui;
+package com.yangdiansheng.lib_common_ui.page_indictor;
 
 import android.content.Context;
 

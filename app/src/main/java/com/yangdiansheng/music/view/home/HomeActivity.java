@@ -64,6 +64,8 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         MagicIndicator magicIndicator = findViewById(R.id.magic_indicator);
         magicIndicator.setBackgroundColor(Color.WHITE);
         CommonNavigator commonNavigator = new CommonNavigator(this);
+        commonNavigator.setAdjustMode(true);
+
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
             @Override
             public int getCount() {

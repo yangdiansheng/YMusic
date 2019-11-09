@@ -21,7 +21,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
         mList = datas;
     }
 
-    //初始化对应的fragment
+    //初始化对应的fragment 延迟Fragment创建
     @Override
     public Fragment getItem(int position) {
         int type = mList[position].getValue();

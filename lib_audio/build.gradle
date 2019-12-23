@@ -1,18 +1,20 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
+apply plugin: 'org.greenrobot.greendao'
 
+def pomVersionName = '1.0.0-snapsot'
 def pomName = this.getName()
-def pomVersion = '1.0.0-snapsot'
-def pomDescription = 'the audio for project'
+def pomDescription = 'the audio library for all project'
+def versionString = '1.0'
+def versionNumber = 1
 
 android {
     compileSdkVersion this.rootProject.android.compileSdkVersion
     defaultConfig {
         minSdkVersion this.rootProject.android.minSdkVersion
         targetSdkVersion this.rootProject.android.targetSdkVersion
-        versionCode this.rootProject.android.versionCode
-        versionName this.rootProject.android.versionName
-        multiDexEnabled this.rootProject.android.mutidex
+        versionCode versionNumber
+        versionName versionString
     }
 
     buildTypes {
@@ -22,11 +24,41 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation this.rootProject.depsLibs.appcompat
+    //占位主工程android原生库
+    compileOnly rootProject.depsLibs.appcompat
+    compileOnly rootProject.depsLibs.design
+    compileOnly rootProject.depsLibs.recyclerview
+
+    //占位主工程的greenDao类库
+    compileOnly rootProject.depsLibs.greendao
+    //占位主工程的eventbus库
+    compileOnly rootProject.depsLibs.eventbus
+    //占位主工程的rxjava库
+    compileOnly rootProject.depsLibs.rxjava
+
+    //占位主工程自己源码库
+    compileOnly project(':lib_imageloader')
+    compileOnly project(':lib_common_ui')
+    compileOnly project(':lib_share')
+}
+
+greendao {
+    //其它配置保持默认,有需要再研究
+    schemaVersion 1 //数据库版本号
+    daoPackage 'com.yangdiansheng.lib_audio.mediaplayer.db' //dao,master类所在包
 }
 
 uploadArchives{
@@ -37,9 +69,9 @@ uploadArchives{
             }
             pom.project{
                 name pomName
-                version pomVersion
+                version pomVersionName
                 description pomDescription
-                artifactId pomVersion
+                artifactId pomVersionName
                 groupId POM_GROUPID
                 packaging POM_PACKAGING
             }

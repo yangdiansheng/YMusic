@@ -68,11 +68,63 @@
             android:layout_height="wrap_content"
             android:scrollbars="none">
 
+            <!--登录UI-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/avatr_view"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/unloggin_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:gravity="center"
+                            android:text="登陆网易云音乐"
+                            android:textColor="@color/color_333333"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:gravity="center"
+                            android:text="手机电脑多端同步，尽享海量高品质音乐"
+                            android:textColor="@color/color_333333"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/bg_home_login"
+                            android:paddingStart="40dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="40dp"
+                            android:paddingBottom="5dp"
+                            android:text="立即登陆"
+                            android:textColor="@color/color_333333"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
         </ScrollView>
 

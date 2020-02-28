@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 apply plugin: 'maven'
 apply plugin: 'org.greenrobot.greendao'
 
@@ -77,4 +79,7 @@ uploadArchives{
             }
         }
     }
+}
+repositories {
+    mavenCentral()
 }

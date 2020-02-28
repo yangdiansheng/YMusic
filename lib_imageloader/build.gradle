@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion this.rootProject.android.compileSdkVersion
@@ -28,4 +30,8 @@ dependencies {
     //占位主工程rxjava
     compileOnly rootProject.depsLibs.rxjava
     compileOnly rootProject.depsLibs.rxandroid
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

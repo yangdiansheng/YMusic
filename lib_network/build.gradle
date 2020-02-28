@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion this.rootProject.android.compileSdkVersion
@@ -28,5 +30,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation this.rootProject.depsLibs.appcompat
-    api this.rootProject.depsLibs.okhttp //okttp依赖
+    api this.rootProject.depsLibs.okhttp
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version" //okttp依赖
+}
+repositories {
+    mavenCentral()
 }

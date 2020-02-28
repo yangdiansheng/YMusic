@@ -36,9 +36,7 @@ public class DiscoryFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_mine_layout, null);
-        mTextView = rootView.findViewById(R.id.textView);
-        mTextView.setText("发现");
+        View rootView = inflater.inflate(R.layout.fragment_discover, null);
         return rootView;
     }
 

@@ -11,7 +11,6 @@ import com.yangdiansheng.lib_network.response.listener.DisposeDataListener;
 import com.yangdiansheng.lib_network.utils.ResponseEntityToModule;
 import com.yangdiansheng.music.R;
 import com.yangdiansheng.music.api.MockData;
-import com.yangdiansheng.music.api.RequestCenter;
 import com.yangdiansheng.music.view.login.manager.UserManager;
 import com.yangdiansheng.music.view.login.user.LoginEvent;
 
@@ -31,7 +30,8 @@ public class LoginActivity extends BaseActivity implements DisposeDataListener{
         findViewById(R.id.login_view).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RequestCenter.login(LoginActivity.this);
+//                RequestCenter.login(LoginActivity.this);
+                EventBus.getDefault().post(new LoginEvent());
             }
         });
     }
@@ -41,6 +41,7 @@ public class LoginActivity extends BaseActivity implements DisposeDataListener{
         User user = (User) responseObj;
         UserManager.getInstance().saveUser(user);
         EventBus.getDefault().post(new LoginEvent());
+
         finish();
     }
 

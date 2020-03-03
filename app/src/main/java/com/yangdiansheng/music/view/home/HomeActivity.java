@@ -7,18 +7,17 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.yangdiansheng.lib_common_ui.base.BaseActivity;
 import com.yangdiansheng.lib_common_ui.page_indictor.ScaleTransitionPagerTitleView;
-import com.yangdiansheng.lib_imageloader.app.ImageLoaderManager;
 import com.yangdiansheng.music.R;
 import com.yangdiansheng.music.view.home.adapter.HomePagerAdapter;
 import com.yangdiansheng.music.view.home.model.CHANNEL;
 import com.yangdiansheng.music.view.login.LoginActivity;
-import com.yangdiansheng.music.view.login.manager.UserManager;
 import com.yangdiansheng.music.view.login.user.LoginEvent;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -131,11 +130,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.unloggin_layout:
-                if (!UserManager.getInstance().hasLogin()) {
+//                if (!UserManager.getInstance().hasLogin()) {
                     LoginActivity.start(this);
-                } else {
-                    mDrawerLayout.closeDrawer(Gravity.LEFT);
-                }
+//                } else {
+//                    mDrawerLayout.closeDrawer(Gravity.LEFT);
+//                }
                 break;
             case R.id.toggle_view:
                 mDrawerLayout.openDrawer(Gravity.LEFT);
@@ -145,10 +144,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLoginEvent(LoginEvent evnet){
-        unLogginLayout.setVisibility(View.GONE);
-        mPhotoView.setVisibility(View.VISIBLE);
-        ImageLoaderManager.getInstance()
-                .displayImageForCircle(mPhotoView,
-                        UserManager.getInstance().getUser().data.photoUrl);
+//        unLogginLayout.setVisibility(View.GONE);
+//        mPhotoView.setVisibility(View.VISIBLE);
+//        ImageLoaderManager.getInstance()
+//                .displayImageForCircle(mPhotoView,
+//                        UserManager.getInstance().getUser().data.photoUrl);
+        Log.i("yyy","1111");
     }
 }

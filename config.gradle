@@ -10,11 +10,11 @@ ext {
     ]
 
     depsVersion = [
-            appcompat: '28.0.0',
+            appcompat     : '28.0.0',
             design        : '28.0.0',
             recyclerview  : '28.0.0',
             constraint    : '1.1.3',
-            magicindicator : '1.5.0',
+            magicindicator: '1.5.0',
             okhttp        : '3.3.0',
             rxjava        : '2.2.9',
             rxandroid     : '2.1.1',
@@ -25,17 +25,18 @@ ext {
     ]
 
     depsLibs = [
-            appcompat: "com.android.support:appcompat-v7:${depsVersion.appcompat}",
-            magicindicator : "com.github.hackware1993:MagicIndicator:${depsVersion.magicindicator}",
-            okhttp        : "com.squareup.okhttp3:okhttp:${depsVersion.okhttp}",
-            glide         : "com.github.bumptech.glide:glide:${depsVersion.glide}",
-            glidecompiler : "com.github.bumptech.glide:compiler:${depsVersion.glidecompiler}",
-            rxjava        : "io.reactivex.rxjava2:rxjava:${depsVersion.rxjava}",
-            rxandroid     : "io.reactivex.rxjava2:rxandroid:${depsVersion.rxandroid}",
-            eventbus      : "org.greenrobot:eventbus:${depsVersion.eventbus}",
-            greendao      : "org.greenrobot:greendao:${depsVersion.greendao}",
-            design        : "com.android.support:design:${depsVersion.design}",
-            recyclerview  : "com.android.support:recyclerview-v7:${depsVersion.recyclerview}",
-            constraint    : "com.android.support.constraint:constraint-layout:${depsVersion.constraint}",
+            appcompat        : "com.android.support:appcompat-v7:${depsVersion.appcompat}",
+            magicindicator   : "com.github.hackware1993:MagicIndicator:${depsVersion.magicindicator}",
+            okhttp           : "com.squareup.okhttp3:okhttp:${depsVersion.okhttp}",
+            glide            : "com.github.bumptech.glide:glide:${depsVersion.glide}",
+            glidecompiler    : "com.github.bumptech.glide:compiler:${depsVersion.glidecompiler}",
+            rxjava           : "io.reactivex.rxjava2:rxjava:${depsVersion.rxjava}",
+            rxandroid        : "io.reactivex.rxjava2:rxandroid:${depsVersion.rxandroid}",
+            eventbus         : "org.greenrobot:eventbus:${depsVersion.eventbus}",
+            eventbusProcessor: "org.greenrobot:eventbus-annotation-processor:${depsVersion.eventbus}",
+            greendao         : "org.greenrobot:greendao:${depsVersion.greendao}",
+            design           : "com.android.support:design:${depsVersion.design}",
+            recyclerview     : "com.android.support:recyclerview-v7:${depsVersion.recyclerview}",
+            constraint       : "com.android.support.constraint:constraint-layout:${depsVersion.constraint}",
     ]
 }

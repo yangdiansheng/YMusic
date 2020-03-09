@@ -11,11 +11,6 @@ android {
         versionCode this.rootProject.android.versionCode
         versionName this.rootProject.android.versionName
         multiDexEnabled this.rootProject.android.mutidex
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [ eventBusIndex : 'com.yangdiansheng.music.MyEventBusIndex' ]
-            }
-        }
     }
     buildTypes {
         release {
@@ -24,8 +19,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = '1.8'
-        targetCompatibility = '1.8'
+        sourceCompatibility = '1.7'
+        targetCompatibility = '1.7'
     }
 }
 
@@ -36,7 +31,8 @@ dependencies {
     implementation rootProject.depsLibs.rxjava
     implementation rootProject.depsLibs.rxandroid
     implementation rootProject.depsLibs.eventbus
-    annotationProcessor rootProject.depsLibs.eventbusProcessor
+    implementation project(':lib_annotations')
+    annotationProcessor project(':lib_processor')
 
 
     implementation project(':lib_common_ui')

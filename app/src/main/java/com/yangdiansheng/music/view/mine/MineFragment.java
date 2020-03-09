@@ -1,7 +1,6 @@
 package com.yangdiansheng.music.view.mine;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.yangdiansheng.music.R;
-import com.yangdiansheng.music.test.TestOneActivity;
 
 
 public class MineFragment extends Fragment {
@@ -40,9 +38,6 @@ public class MineFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_mine, null);
         mTextView = rootView.findViewById(R.id.tv_test);
-        mTextView.setOnClickListener(v ->{
-            getActivity().startActivity(new Intent(getActivity(), TestOneActivity.class));
-        });
         return rootView;
     }
 

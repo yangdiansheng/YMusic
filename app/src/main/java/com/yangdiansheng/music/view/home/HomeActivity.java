@@ -12,13 +12,16 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.hwangjr.rxbus.RxBus;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.yangdiansheng.lib_common_ui.base.BaseActivity;
 import com.yangdiansheng.lib_common_ui.page_indictor.ScaleTransitionPagerTitleView;
 import com.yangdiansheng.music.R;
 import com.yangdiansheng.music.view.home.adapter.HomePagerAdapter;
 import com.yangdiansheng.music.view.home.model.CHANNEL;
 import com.yangdiansheng.music.view.login.LoginActivity;
-import com.yangdiansheng.music.view.login.user.LoginEvent;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -28,11 +31,9 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import java.util.ArrayList;
 
-public class HomeActivity extends BaseActivity implements View.OnClickListener{
+public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     private static final CHANNEL[] CHANNELS =
             new CHANNEL[]{CHANNEL.MY, CHANNEL.DISCORY, CHANNEL.FRIEND};
@@ -52,7 +53,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
+        RxBus.get().register(this);
         setContentView(R.layout.activity_home);
         initView();
         initData();
@@ -123,18 +124,14 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+        RxBus.get().unregister(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.unloggin_layout:
-//                if (!UserManager.getInstance().hasLogin()) {
-                    LoginActivity.start(this);
-//                } else {
-//                    mDrawerLayout.closeDrawer(Gravity.LEFT);
-//                }
+                LoginActivity.start(this);
                 break;
             case R.id.toggle_view:
                 mDrawerLayout.openDrawer(Gravity.LEFT);
@@ -142,13 +139,22 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onLoginEvent(LoginEvent evnet){
-//        unLogginLayout.setVisibility(View.GONE);
-//        mPhotoView.setVisibility(View.VISIBLE);
-//        ImageLoaderManager.getInstance()
-//                .displayImageForCircle(mPhotoView,
-//                        UserManager.getInstance().getUser().data.photoUrl);
-        Log.i("yyy","1111");
+
+    @Subscribe
+    public void eat(String food) {
+        Log.i("yyy", food);
+    }
+
+    @Subscribe(
+            thread = EventThread.IO,
+            tags = {
+                    @Tag("11111")
+            }
+
+    )
+    public void eatMore(ArrayList<String> food) {
+        for (String s:food) {
+            Log.i("yyy", s);
+        }
     }
 }

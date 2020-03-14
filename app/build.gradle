@@ -36,6 +36,7 @@ dependencies {
     implementation rootProject.depsLibs.rxjava
     implementation rootProject.depsLibs.rxandroid
     implementation rootProject.depsLibs.eventbus
+    implementation rootProject.depsLibs.rxbus
     annotationProcessor rootProject.depsLibs.eventbusProcessor
 
 

@@ -22,6 +22,7 @@ ext {
             glidecompiler : '4.9.0',
             eventbus      : '3.1.1',
             greendao      : '3.2.2',
+            rxbus      : '1.0.6',
     ]
 
     depsLibs = [
@@ -38,5 +39,6 @@ ext {
             design           : "com.android.support:design:${depsVersion.design}",
             recyclerview     : "com.android.support:recyclerview-v7:${depsVersion.recyclerview}",
             constraint       : "com.android.support.constraint:constraint-layout:${depsVersion.constraint}",
+            rxbus       : "com.hwangjr.rxbus:rxbus:${depsVersion.rxbus}",
     ]
 }

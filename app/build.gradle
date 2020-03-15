@@ -1,10 +1,4 @@
 
-
-def str1 = "111"
-def str2 = "2222"
-str1 > str2
-str1.minus(str2)
-
 android {
     compileSdkVersion this.rootProject.android.compileSdkVersion
     defaultConfig {
@@ -52,3 +46,16 @@ repositories {
     mavenCentral()
 
 }
+
+//直接task函数创建
+task hellotask(group:'yyy',description:'task study'){
+    println 'hello task'
+}
+
+//通过taskContainer创建task
+this.tasks.create(name :"hellotask2"){
+    setGroup('yyy')
+    setDescription('task study')
+    println 'hello task 2'
+}
+

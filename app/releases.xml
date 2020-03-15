@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
 <releases>
-    <release>
-        <versionCode>100</versionCode>
-        <versionName>1.0.0</versionName>
-        <versionInfo>App第一个版本</versionInfo>
-    </release>
-    <release>
-        <versionCode>101</versionCode>
-        <versionName>1.0.1</versionName>
-        <versionInfo>App第二个版本</versionInfo>
-    </release>
+  <release>
+    <versionName>1.0.1</versionName>
+    <versionCode>101</versionCode>
+    <versionInfo>第二个版本</versionInfo>
+  </release>
+
+<release>
+  <versionName>1.0.1</versionName>
+  <versionCode>101</versionCode>
+  <versionInfo>第二个版本</versionInfo>
+</release>
 </releases>

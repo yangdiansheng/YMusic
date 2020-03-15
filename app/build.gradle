@@ -1,4 +1,3 @@
-
 android {
     compileSdkVersion this.rootProject.android.compileSdkVersion
     defaultConfig {
@@ -43,20 +42,20 @@ repositories {
 
 //配置阶段执行
 //直接task函数创建
-task hellotask(group:'yyy',description:'task study'){
+task hellotask(group: 'yyy', description: 'task study') {
     println 'hello task'
-    doFirst{
+    doFirst {
         //执行阶段执行  后执行
         println "task group $group"
     }
 }
-hellotask.doFirst{
+hellotask.doFirst {
     //执行阶段执行  先执行
     println "task description $description"
 }
 
 //通过taskContainer创建task
-this.tasks.create(name :"hellotask2"){
+this.tasks.create(name: "hellotask2") {
     setGroup('yyy')
     setDescription('task study')
     println 'hello task 2'
@@ -66,15 +65,15 @@ this.tasks.create(name :"hellotask2"){
 def startTime, endTime
 
 //所有task都配置完毕
-this.afterEvaluate{
+this.afterEvaluate {
     Project project ->
         def preBuildTask = project.tasks.getByName('preBuild')
-        preBuildTask.doFirst{
+        preBuildTask.doFirst {
             startTime = System.currentTimeMillis()
             println 'the start time is:' + startTime
         }
         def buildTask = project.tasks.getByName('build')
-        buildTask.doLast{
+        buildTask.doLast {
             endTime = System.currentTimeMillis()
             println 'the end time is:' + endTime
             println "buil time is:${endTime - startTime}"
@@ -82,54 +81,54 @@ this.afterEvaluate{
         }
 }
 
-task taskX{
-    doLast{
+task taskX {
+    doLast {
         println 'hello taskX'
     }
 }
 
-task taskY{
-    doLast{
+task taskY {
+    doLast {
         println 'hello taskY'
     }
 }
 
 //<< 效果等于doLast
-task lib1  {
-    doLast{
+task lib1 {
+    doLast {
         println 'lib1'
     }
 }
 
-task lib2  {
-    doLast{
+task lib2 {
+    doLast {
         println 'lib2'
     }
 }
 
-task noLib  {
+task noLib {
     doLast {
         println 'noLib'
     }
 }
 
-task taskZ(dependsOn:[taskX,taskY]){
-    dependsOn this.tasks.findAll{
+task taskZ(dependsOn: [taskX, taskY]) {
+    dependsOn this.tasks.findAll {
         task -> return task.name.startsWith('lib')
     }
-    doLast{
+    doLast {
         println 'hello taskZ'
     }
 }
 
-task handleReleaseFile{
+task handleReleaseFile {
     def srcFile = file('releases.xml')
     def destDir = new File(this.buildDir.path + '/generated/release/')
-    doLast{
+    doLast {
         println '开始解析对应的xml文件'
         destDir.mkdir()
         def releases = new XmlParser() {}.parse(srcFile)
-        releases.release.each{
+        releases.release.each {
             releaseNode ->
                 //解析每个release结点
                 def versionName = releaseNode.versionName.text()
@@ -140,11 +139,11 @@ task handleReleaseFile{
                 println 'the file versionCode is:' + versionCode
                 println 'the file versionInfo is:' + versionInfo
                 //创建一个文件并写入结点数据
-                def destFile = new File(destDir,"release-${versionName}.text")
-                if(!destFile.exists()){
+                def destFile = new File(destDir, "release-${versionName}.text")
+                if (!destFile.exists()) {
                     destFile.createNewFile()
                 }
-                destFile.withWriter{
+                destFile.withWriter {
                     writer ->
                         writer.write("${name} -> ${versionCode} -> ${versionInfo}")
                 }
@@ -152,13 +151,110 @@ task handleReleaseFile{
     }
 }
 
-task handleReleaseFileTest(dependsOn: handleReleaseFile){
+task handleReleaseFileTest(dependsOn: handleReleaseFile) {
     def dir = fileTree(this.buildDir.path + 'generated/release/')
-    doLast{
-        dir.each{
+    doLast {
+        dir.each {
             println 'the file name is:' + it
         }
         println '输出完成。。。'
+    }
+}
+
+ext {
+    versionName = '1.0.1'
+    versionCode = '101'
+    versionInfo = '第二个版本'
+    file = file('releases.xml')
+    if (file != null && !file.exists()) {
+        file.createNewFile()
+    }
+}
+
+task writeTask {
+    //为task指定输入
+    inputs.property("versionName", this.versionName)
+    inputs.property("versionCode", this.versionCode)
+    inputs.property("versionInfo", this.versionInfo)
+    //指定输出
+    outputs.file file
+
+    doLast {
+        def data = inputs.getProperties()
+        File file = outputs.getFiles().getSingleFile()
+        def versionMsg = new VersionMsg(data)
+        //将实体对
+        def sw = new StringWriter()
+        def xmlBuilder = new groovy.xml.MarkupBuilder(sw)
+        if (file.text != null && file.text.size() <= 0) {
+            //文件中没有内容
+            println "文件中没有内容"
+            xmlBuilder.releases {
+                release {
+                    versionName(versionMsg.versionName)
+                    versionCode(versionMsg.versionCode)
+                    versionInfo(versionMsg.versionInfo)
+                }
+            }
+            file.withWriter {
+                writer -> writer.append(sw.toString())
+            }
+        } else {
+            println "已有版本信息"
+            //已有版本信息
+            xmlBuilder.release {
+                versionName(versionMsg.versionName)
+                versionCode(versionMsg.versionCode)
+                versionInfo(versionMsg.versionInfo)
+            }
+            //将生成xml插入到跟结点之前
+            def lines = file.readLines()
+            def lengths = lines.size() - 1
+            lines.eachWithIndex {
+                String line, int index ->
+                    println "line : ${line} index : ${index}"
+            }
+            file.withWriter {
+                writer ->
+                    lines.eachWithIndex {
+                        String line,int index ->
+                            if(index != lengths){
+                                writer.append(line + '\r\n')
+                            } else if(index == lengths){
+                                writer.append('\r\r\n' + sw.toString() + '\r\n')
+                                writer.append(lines.get(lengths))
+                            }
+                    }
+            }
+        }
+
+    }
+}
+
+task readTast {
+    inputs.file file
+    doLast {
+        def file = inputs.files.singleFile
+        println file.text
+    }
+}
+
+class VersionMsg {
+    def versionName
+    def versionCode
+    def versionInfo
+
+    public VersionMsg(Map<String, Object> map) {
+        this.versionName = map.get("versionName")
+        this.versionCode = map.get("versionCode")
+        this.versionInfo = map.get("versionInfo")
+    }
+}
+
+task tastTest {
+    dependsOn readTast, writeTask
+    doLast {
+        println '输入输出任务结束'
     }
 }
 

@@ -64,34 +64,6 @@ this.tasks.create(name: "hellotask2") {
 //计算build执行时长
 def startTime, endTime
 
-//所有task都配置完毕
-this.afterEvaluate {
-    Project project ->
-        def preBuildTask = project.tasks.getByName('preBuild')
-        preBuildTask.doFirst {
-            startTime = System.currentTimeMillis()
-            println 'the start time is:' + startTime
-        }
-        def buildTask = project.tasks.getByName('build')
-        buildTask.doLast {
-            endTime = System.currentTimeMillis()
-            println 'the end time is:' + endTime
-            println "buil time is:${endTime - startTime}"
-
-        }
-}
-
-task taskX {
-    doLast {
-        println 'hello taskX'
-    }
-}
-
-task taskY {
-    doLast {
-        println 'hello taskY'
-    }
-}
 
 //<< 效果等于doLast
 task lib1 {
@@ -109,15 +81,6 @@ task lib2 {
 task noLib {
     doLast {
         println 'noLib'
-    }
-}
-
-task taskZ(dependsOn: [taskX, taskY]) {
-    dependsOn this.tasks.findAll {
-        task -> return task.name.startsWith('lib')
-    }
-    doLast {
-        println 'hello taskZ'
     }
 }
 
@@ -259,6 +222,46 @@ task tastTest {
 }
 
 
+//执行指定顺序
+task taskY {
+    doLast {
+        println 'hello taskY'
+    }
+}
+
+task taskX {
+    mustRunAfter(taskY)
+    doLast {
+        println 'hello taskX'
+    }
+}
+
+
+task taskZ(dependsOn: [taskX, taskY]) {
+    dependsOn this.tasks.findAll {
+        task -> return task.name.startsWith('lib')
+    }
+    doLast {
+        println 'hello taskZ'
+    }
+}
+
+//所有task都配置完毕
+this.afterEvaluate {
+    Project project ->
+        def preBuildTask = project.tasks.getByName('preBuild')
+        preBuildTask.doFirst {
+            startTime = System.currentTimeMillis()
+            println 'the start time is:' + startTime
+        }
+        def buildTask = project.tasks.getByName('build')
+        buildTask.doLast {
+            endTime = System.currentTimeMillis()
+            println 'the end time is:' + endTime
+            println "buil time is:${endTime - startTime}"
+            taskZ.execuate()
+        }
+}
 
 
 

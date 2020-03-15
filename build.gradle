@@ -124,10 +124,10 @@ project('app'){
         }
 
 }
-
-project("lib_webview"){
-    Project project ->
-}
+//
+//project("lib_webview"){
+//    Project project ->
+//}
 
 //配置当前project和他的子project
 allprojects {

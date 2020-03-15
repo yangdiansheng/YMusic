@@ -1,3 +1,6 @@
-include ':app', ':lib_common_ui', ':lib_network', ':lib_imageloader', ':lib_video', ':lib_audio', ':lib_update', ':lib_pullalive', ':lib_webview', ':lib_qrcode', ':lib_share'
+include ':app', ':lib_common_ui', ':lib_network', ':lib_imageloader', ':lib_video', ':lib_audio', ':lib_update', ':lib_pullalive', ':lib_qrcode', ':lib_share'
 
+if(hasProperty('isLoadText') ? isLoadText.toBoolean() : false){
+    include ':lib_webview'
+}
 println '初始化阶段开始执行'

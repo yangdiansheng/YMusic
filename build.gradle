@@ -62,17 +62,17 @@ task clean(type: Delete) {
 
 //配置阶段开始之前
 this.beforeEvaluate{
-    println '配置阶段前执行完毕'
+//    println '配置阶段前执行完毕'
 }
 
 //配置阶段之后
 this.afterEvaluate{
-    println '配置阶段执行完毕'
+//    println '配置阶段执行完毕'
 }
 
 //声明周期执行完之后
 this.gradle.buildFinished{
-    println '执行阶段执行完毕'
+//    println '执行阶段执行完毕'
 }
 
 this.gradle.beforeProject{
@@ -82,4 +82,50 @@ this.gradle.beforeProject{
 
 this.gradle.afterProject{
 
+}
+
+//执行在配置阶段
+//this.getProjects()
+def getProjects(){
+    println '--------------'
+    println 'root project'
+    println '---------------'
+    this.getAllprojects().eachWithIndex {
+        Project project,int index ->
+            if(index == 0){
+                println "Root project :${project.name}"
+            } else {
+                println "+---project :${project.name}"
+            }
+    }
+}
+
+//this.getSubProjects()
+def getSubProjects(){
+    println '--------------'
+    println 'sub project'
+    println '---------------'
+    this.getSubprojects().eachWithIndex {
+        Project project,int index ->
+            println "+---project :${project.name}"
+    }
+}
+
+//获取父project
+//this.getParentProject()
+def getParentProject(){
+    println '--------------'
+    println 'parent project'
+    println '---------------'
+    def name = this.getParent().name
+    println "the parent project is ${name}"
+}
+
+this.getRootPro()
+def getRootPro(){
+    println '--------------'
+    println 'root project'
+    println '---------------'
+    def name = this.getRootProject().name
+    println "the root project is ${name}"
 }

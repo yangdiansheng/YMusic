@@ -8,11 +8,6 @@ android {
         versionCode this.rootProject.android.versionCode
         versionName this.rootProject.android.versionName
         multiDexEnabled this.rootProject.android.mutidex
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [ eventBusIndex : 'com.yangdiansheng.music.MyEventBusIndex' ]
-            }
-        }
     }
     buildTypes {
         release {
@@ -34,7 +29,6 @@ dependencies {
     implementation rootProject.depsLibs.rxjava
     implementation rootProject.depsLibs.rxandroid
     implementation rootProject.depsLibs.eventbus
-    annotationProcessor rootProject.depsLibs.eventbusProcessor
 
 
     implementation project(':lib_common_ui')
@@ -47,9 +41,18 @@ repositories {
 
 }
 
+//配置阶段执行
 //直接task函数创建
 task hellotask(group:'yyy',description:'task study'){
     println 'hello task'
+    doFirst{
+        //执行阶段执行  后执行
+        println "task group $group"
+    }
+}
+hellotask.doFirst{
+    //执行阶段执行  先执行
+    println "task description $description"
 }
 
 //通过taskContainer创建task
@@ -58,4 +61,35 @@ this.tasks.create(name :"hellotask2"){
     setDescription('task study')
     println 'hello task 2'
 }
+
+//计算build执行时长
+def startTime, endTime
+
+//所有task都配置完毕
+this.afterEvaluate{
+    Project project ->
+        def preBuildTask = project.tasks.getByName('preBuild')
+        preBuildTask.doFirst{
+            startTime = System.currentTimeMillis()
+            println 'the start time is:' + startTime
+        }
+        def buildTask = project.tasks.getByName('build')
+        buildTask.doLast{
+            endTime = System.currentTimeMillis()
+            println 'the end time is:' + endTime
+            println "buil time is:${endTime - startTime}"
+
+        }
+}
+
+
+
+
+
+
+
+
+
+
+
 

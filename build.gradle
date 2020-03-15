@@ -201,7 +201,23 @@ fileTree('gradle/wrapper') {
         }
 }
 
+task(name: 'apkcopy'){
+    doLast{
+        //gradle执行阶段去执行
+        def soutcePath = this.buildDir.path + '/outputs/apk'
+        def desationPath = '/User/xxx/Downloads'
+        def command = "mv -f ${soutcePath} ${desationPath}"
+        exec {
+            try{
+                executable 'bash'
+                args '-c' command
+                println 'the command is execute'
+            } catch (GradleException e){
 
+            }
+        }
+    }
+}
 
 
 

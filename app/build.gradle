@@ -82,8 +82,85 @@ this.afterEvaluate{
         }
 }
 
+task taskX{
+    doLast{
+        println 'hello taskX'
+    }
+}
 
+task taskY{
+    doLast{
+        println 'hello taskY'
+    }
+}
 
+//<< 效果等于doLast
+task lib1  {
+    doLast{
+        println 'lib1'
+    }
+}
+
+task lib2  {
+    doLast{
+        println 'lib2'
+    }
+}
+
+task noLib  {
+    doLast {
+        println 'noLib'
+    }
+}
+
+task taskZ(dependsOn:[taskX,taskY]){
+    dependsOn this.tasks.findAll{
+        task -> return task.name.startsWith('lib')
+    }
+    doLast{
+        println 'hello taskZ'
+    }
+}
+
+task handleReleaseFile{
+    def srcFile = file('releases.xml')
+    def destDir = new File(this.buildDir.path + '/generated/release/')
+    doLast{
+        println '开始解析对应的xml文件'
+        destDir.mkdir()
+        def releases = new XmlParser() {}.parse(srcFile)
+        releases.release.each{
+            releaseNode ->
+                //解析每个release结点
+                def versionName = releaseNode.versionName.text()
+                def versionCode = releaseNode.versionCode.text()
+                def versionInfo = releaseNode.versionInfo.text()
+
+                println 'the file name is:' + versionName
+                println 'the file versionCode is:' + versionCode
+                println 'the file versionInfo is:' + versionInfo
+                //创建一个文件并写入结点数据
+                def destFile = new File(destDir,"release-${versionName}.text")
+                if(!destFile.exists()){
+                    destFile.createNewFile()
+                }
+                destFile.withWriter{
+                    writer ->
+                        writer.write("${name} -> ${versionCode} -> ${versionInfo}")
+                }
+        }
+    }
+}
+
+task handleReleaseFileTest(dependsOn: handleReleaseFile){
+    def dir = fileTree(this.buildDir.path + 'generated/release/')
+    doLast{
+        dir.each{
+            println 'the file name is:' + it
+        }
+        println '输出完成。。。'
+    }
+}
 
 
 

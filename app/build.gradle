@@ -2,6 +2,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 
+def str1 = "111"
+def str2 = "2222"
+str1 > str2
+str1.minus(str2)
+
 android {
     compileSdkVersion this.rootProject.android.compileSdkVersion
     defaultConfig {

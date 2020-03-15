@@ -1,1 +1,3 @@
 include ':app', ':lib_common_ui', ':lib_network', ':lib_imageloader', ':lib_video', ':lib_audio', ':lib_update', ':lib_pullalive', ':lib_webview', ':lib_qrcode', ':lib_share'
+
+println '初始化阶段开始执行'

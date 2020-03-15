@@ -32,6 +32,7 @@ android {
     }
 }
 
+//应用程序第三方依赖
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation this.rootProject.depsLibs.appcompat

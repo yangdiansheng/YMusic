@@ -33,29 +33,6 @@ buildscript {
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        jcenter()
-        mavenCentral()
-        maven { url "https://jitpack.io" }
-        maven {
-            url 'http://localhost:8081/repository/yds_release/'
-            credentials {
-                username 'admin'
-                password 'admin123'
-            }
-        }
-        maven {
-            url 'http://localhost:8081/repository/yds_snapshots/'
-            credentials {
-                username 'admin'
-                password 'admin123'
-            }
-        }
-    }
-}
-
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
@@ -121,7 +98,7 @@ def getParentProject(){
     println "the parent project is ${name}"
 }
 
-this.getRootPro()
+//this.getRootPro()
 def getRootPro(){
     println '--------------'
     println 'root project'
@@ -129,3 +106,72 @@ def getRootPro(){
     def name = this.getRootProject().name
     println "the root project is ${name}"
 }
+
+//操作子组件
+project('app'){
+    //app project
+    Project project ->
+        apply plugin: 'com.android.application'
+        apply plugin: 'kotlin-android-extensions'
+        apply plugin: 'kotlin-android'
+
+        dependencies{
+
+        }
+
+        android{
+
+        }
+
+}
+
+project("lib_webview"){
+    Project project ->
+}
+
+//配置当前project和他的子project
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+        maven {
+            url 'http://localhost:8081/repository/yds_release/'
+            credentials {
+                username 'admin'
+                password 'admin123'
+            }
+        }
+        maven {
+            url 'http://localhost:8081/repository/yds_snapshots/'
+            credentials {
+                username 'admin'
+                password 'admin123'
+            }
+        }
+    }
+}
+
+//子工程配置
+subprojects {
+    Project project ->
+//        apply from:'../config.gradle'
+        if(project.plugins.hasPlugin('com.android.library')){
+
+        }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

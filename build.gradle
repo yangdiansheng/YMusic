@@ -1,5 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-apply from:file('config.gradle')
+apply from: file('config.gradle')
 
 buildscript {
     ext.kotlin_version = '1.3.21'
@@ -38,38 +38,38 @@ task clean(type: Delete) {
 }
 
 //配置阶段开始之前
-this.beforeEvaluate{
+this.beforeEvaluate {
 //    println '配置阶段前执行完毕'
 }
 
 //配置阶段之后
-this.afterEvaluate{
+this.afterEvaluate {
 //    println '配置阶段执行完毕'
 }
 
 //声明周期执行完之后
-this.gradle.buildFinished{
+this.gradle.buildFinished {
 //    println '执行阶段执行完毕'
 }
 
-this.gradle.beforeProject{
+this.gradle.beforeProject {
 
 }
 
 
-this.gradle.afterProject{
+this.gradle.afterProject {
 
 }
 
 //执行在配置阶段
 //this.getProjects()
-def getProjects(){
+def getProjects() {
     println '--------------'
     println 'root project'
     println '---------------'
     this.getAllprojects().eachWithIndex {
-        Project project,int index ->
-            if(index == 0){
+        Project project, int index ->
+            if (index == 0) {
                 println "Root project :${project.name}"
             } else {
                 println "+---project :${project.name}"
@@ -78,19 +78,19 @@ def getProjects(){
 }
 
 //this.getSubProjects()
-def getSubProjects(){
+def getSubProjects() {
     println '--------------'
     println 'sub project'
     println '---------------'
     this.getSubprojects().eachWithIndex {
-        Project project,int index ->
+        Project project, int index ->
             println "+---project :${project.name}"
     }
 }
 
 //获取父project
 //this.getParentProject()
-def getParentProject(){
+def getParentProject() {
     println '--------------'
     println 'parent project'
     println '---------------'
@@ -99,7 +99,7 @@ def getParentProject(){
 }
 
 //this.getRootPro()
-def getRootPro(){
+def getRootPro() {
     println '--------------'
     println 'root project'
     println '---------------'
@@ -108,18 +108,18 @@ def getRootPro(){
 }
 
 //操作子组件
-project('app'){
-    //app project
+project('app') {
+        //app project
     Project project ->
         apply plugin: 'com.android.application'
         apply plugin: 'kotlin-android-extensions'
         apply plugin: 'kotlin-android'
 
-        dependencies{
+        dependencies {
 
         }
 
-        android{
+        android {
 
         }
 
@@ -157,12 +157,44 @@ allprojects {
 subprojects {
     Project project ->
 //        apply from:'../config.gradle'
-        if(project.plugins.hasPlugin('com.android.library')){
+        if (project.plugins.hasPlugin('com.android.library')) {
 
         }
 }
 
+//
+//println getRootDir().absolutePath
+//println getBuildDir().absolutePath
+//println getProjectDir().absolutePath
 
+//println getContent('config.gradle')
+def getContent(String path) {
+    try {
+        def file = file(path)
+        return file.text
+    } catch (GradleException e) {
+        println 'file not found'
+    }
+    return null
+}
+
+//copy{
+//    from file('README.md')
+//    into getRootProject().getBuildDir()
+//
+//}
+
+//对文件树进行遍历
+fileTree('gradle/wrapper') {
+    FileTree filetree ->
+        filetree.visit {
+            FileTreeElement element -> println element.name
+//                copy{
+//                    from element.file
+//                    into getRootProject().getBuildDir().path+'/copy'
+//                }
+        }
+}
 
 
 
